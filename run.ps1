@@ -6,7 +6,7 @@ function Show-Menu {
     Write-Host "1. Disable Telemetry"
     Write-Host "2. Uninstall Programs"
     Write-Host "3. Optimize System"
-    Write-Host "4. Exit" -ForegroundColor Red
+    Write-Host "0. Exit" -ForegroundColor Red
 }
 
 function Disable-Telemetry {
@@ -15,7 +15,7 @@ function Disable-Telemetry {
     Write-Host "2. Disable Connected User Experiences (Collects data for feedback)"
     Write-Host "3. Disable Compatibility Telemetry (Analyzes compatibility issues)"
     Write-Host "4. Disable Windows Error Reporting (Sends crash data)"
-    Write-Host "5. Back to Main Menu" -ForegroundColor Red
+    Write-Host "0. Back to Main Menu" -ForegroundColor Red
     $choice = Read-Host "Select an option"
 
     switch ($choice) {
@@ -41,7 +41,7 @@ function Disable-Telemetry {
             reg add "HKLM\SOFTWARE\Microsoft\Windows\Windows Error Reporting" /v Disabled /t REG_DWORD /d 1 /f
             Write-Host "Windows Error Reporting disabled." -ForegroundColor Green
         }
-        5 { return }
+        0 { return }
         default { Write-Host "Invalid option. Please try again." -ForegroundColor Red }
     }
 }
@@ -62,7 +62,7 @@ function Uninstall-Programs {
     Write-Host "12. Uninstall Xbox Game Bar"
     Write-Host "13. Uninstall Feedback Hub"
     Write-Host "14. Uninstall Weather App"
-    Write-Host "15. Back to Main Menu" -ForegroundColor Red
+    Write-Host "0. Back to Main Menu" -ForegroundColor Red
     $choice = Read-Host "Select an option"
 
     switch ($choice) {
@@ -136,7 +136,7 @@ function Uninstall-Programs {
             Get-AppxPackage -Name "*Microsoft.BingWeather*" | Remove-AppxPackage -ErrorAction SilentlyContinue
             Write-Host "Weather App uninstalled." -ForegroundColor Green
         }
-        15 { return }
+        0 { return }
         default { Write-Host "Invalid option. Please try again." -ForegroundColor Red }
     }
 }
@@ -146,7 +146,7 @@ function Optimize-System {
     Write-Host "1. Disable Startup Items"
     Write-Host "2. Disable Unused Services (e.g., Bluetooth)"
     Write-Host "3. Disable Visual Effects for Performance"
-    Write-Host "4. Back to Main Menu" -ForegroundColor Red
+    Write-Host "0. Back to Main Menu" -ForegroundColor Red
     $choice = Read-Host "Select an option"
 
     switch ($choice) {
@@ -168,7 +168,7 @@ function Optimize-System {
             reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects" /v VisualFXSetting /t REG_DWORD /d 2 /f
             Write-Host "Visual effects disabled for better performance." -ForegroundColor Green
         }
-        4 { return }
+        0 { return }
         default { Write-Host "Invalid option. Please try again." -ForegroundColor Red }
     }
 }
@@ -180,9 +180,9 @@ do {
         1 { Disable-Telemetry }
         2 { Uninstall-Programs }
         3 { Optimize-System }
-        4 { break }
+        0 { break }
         default { Write-Host "Invalid option. Please try again." -ForegroundColor Red }
     }
-} while ($mainChoice -ne 4)
+} while ($mainChoice -ne 0)
 
 Write-Host "`nExiting the tool. Goodbye!" -ForegroundColor Cyan
