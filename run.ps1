@@ -1,4 +1,4 @@
-Write-Host "Welcome to Let'sOptimize110!" -ForegroundColor Cyan
+Write-Host "Welcome to Let'sOptimize110! v1.0.0" -ForegroundColor Cyan
 Write-Host "Visit us on GitHub: https://github.com/SublimateTheBerry/letsoptimize110" -ForegroundColor Green
 
 function Show-Menu {
