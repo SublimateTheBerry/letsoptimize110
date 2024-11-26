@@ -1,5 +1,5 @@
 $LangRU = @{
-    Welcome = "Добро пожаловать в Let'sOptimize110! v3.0.0"
+    Welcome = "Добро пожаловать в Let'sOptimize110! v2.0.0"
     VisitGitHub = "GitHub: https://github.com/SublimateTheBerry/letsoptimize110"
     MainMenu = "=== Инструмент для приватности и оптимизации ==="
     Options = @(
