@@ -11,6 +11,7 @@
             --color-text-primary: #c9d1d9;
             --color-text-secondary: #8b949e;
             --color-accent: #58a6ff;
+            --color-success: #2ea44f;
         }
 
         * {
@@ -56,6 +57,7 @@
             border: 1px solid var(--color-border);
             border-radius: 6px;
             padding: 20px;
+            position: relative;
         }
 
         .command {
@@ -68,6 +70,7 @@
             border-radius: 6px;
             text-align: center;
             word-break: break-all;
+            position: relative;
         }
 
         .footer {
@@ -99,6 +102,26 @@
             background-color: var(--color-accent);
             color: var(--color-bg-primary);
         }
+
+        .copy-btn {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--color-text-secondary);
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            color: var(--color-accent);
+        }
+
+        .copy-btn.copied {
+            color: var(--color-success);
+        }
     </style>
 </head>
 <body>
@@ -115,8 +138,14 @@
             <h2 id="instruction-title" style="color: var(--color-accent); margin-bottom: 15px;">Launch Instructions</h2>
             <p id="instruction-text" style="color: var(--color-text-secondary); margin-bottom: 15px;">Run the following command in PowerShell with administrator rights:</p>
             
-            <div class="command">
+            <div class="command" id="command-container">
                 irm https://sublimatetheberry.github.io/letsoptimize110/run.ps1 | iex
+                <button class="copy-btn" id="copy-btn" aria-label="Copy command">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                </button>
             </div>
         </div>
         
@@ -144,6 +173,9 @@
         };
 
         const langButtons = document.querySelectorAll('.lang-btn');
+        const copyBtn = document.getElementById('copy-btn');
+        const commandContainer = document.getElementById('command-container');
+        
         const elements = {
             title: document.getElementById('title'),
             description: document.getElementById('description'),
@@ -167,6 +199,21 @@
         langButtons.forEach(btn => {
             btn.addEventListener('click', () => {
                 setLanguage(btn.dataset.lang);
+            });
+        });
+
+        // Copy functionality
+        copyBtn.addEventListener('click', () => {
+            const commandText = commandContainer.textContent.trim();
+            
+            navigator.clipboard.writeText(commandText).then(() => {
+                copyBtn.classList.add('copied');
+                
+                setTimeout(() => {
+                    copyBtn.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
             });
         });
     </script>
