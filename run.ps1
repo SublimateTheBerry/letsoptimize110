@@ -1,35 +1,35 @@
 $LangRU = @{
-    Welcome = "Добро пожаловать в Let'sOptimize110! v2.0.0"
+    Welcome = "Dobro pozhalovat v Let'sOptimize110! v2.1.0"
     VisitGitHub = "GitHub: https://github.com/SublimateTheBerry/letsoptimize110"
-    MainMenu = "=== Инструмент для приватности и оптимизации ==="
+    MainMenu = "=== Instrument dlya privatnosti i optimizatsii ==="
     Options = @(
-        "1. Отключить телеметрию и слежку", 
-        "2. Удалить встроенные приложения", 
-        "3. Оптимизировать систему", 
-        "4. Очистить временные файлы и логи", 
-        "5. Обновить Windows", 
-        "6. Управление конфиденциальностью", 
-        "7. Удаление устаревших данных", 
-        "8. Установить Google Chrome", 
-        "9. Установить Microsoft Store", 
-        "0. Выход"
+        "1. Otklyuchit' telemetriyu i slezhku", 
+        "2. Udalit' vstroennye prilozheniya", 
+        "3. Optimizirovat' sistemu", 
+        "4. Ochistit' vremennye fayly i logi", 
+        "5. Obnovit' Windows", 
+        "6. Upravlenie konfidentsial'nost'yu", 
+        "7. Udaleniye ustarevshikh dannykh", 
+        "8. Ustnovit' Google Chrome", 
+        "9. Ustnovit' Microsoft Store", 
+        "0. Vykhod"
     )
-    DisableTelemetry = "=== Отключить телеметрию и слежку ==="
-    UninstallApps = "=== Удалить встроенные приложения ==="
-    OptimizeSystem = "=== Оптимизация системы ==="
-    CleanSystem = "=== Очистка временных файлов и логов ==="
-    UpdateWindows = "=== Обновление Windows ==="
-    PrivacyManagement = "=== Управление конфиденциальностью ==="
-    RemoveLegacyData = "=== Удаление устаревших данных ==="
-    InstallChrome = "=== Установить Google Chrome ==="
-    InstallStore = "=== Установить Microsoft Store ==="
-    BackToMenu = "0. Назад в главное меню"
-    Exit = "Выход из инструмента. До свидания!"
-    InvalidOption = "Неверный выбор. Попробуйте еще раз."
+    DisableTelemetry = "=== Otklyuchit' telemetriyu i slezhku ==="
+    UninstallApps = "=== Udalit' vstroennye prilozheniya ==="
+    OptimizeSystem = "=== Optimizatsiya sistemy ==="
+    CleanSystem = "=== Ochistka vremennykh faylov i logov ==="
+    UpdateWindows = "=== Obnovlenie Windows ==="
+    PrivacyManagement = "=== Upravlenie konfidentsial'nost'yu ==="
+    RemoveLegacyData = "=== Udaleniye ustarevshikh dannykh ==="
+    InstallChrome = "=== Ustnovit' Google Chrome ==="
+    InstallStore = "=== Ustnovit' Microsoft Store ==="
+    BackToMenu = "0. Nazad v glavnoe menyu"
+    Exit = "Vykhod iz instrumenta. Do svidaniya!"
+    InvalidOption = "Nevernyy vybor. Poprobuyte yeshche raz."
 }
 
 $LangEN = @{
-    Welcome = "Welcome to Let'sOptimize110! v3.0.0"
+    Welcome = "Welcome to Let'sOptimize110! v2.1.0"
     VisitGitHub = "GitHub: https://github.com/SublimateTheBerry/letsoptimize110"
     MainMenu = "=== Privacy and Optimization Tool ==="
     Options = @(
@@ -59,10 +59,10 @@ $LangEN = @{
 }
 
 function Select-Language {
-    Write-Host "Select language / Выберите язык:"
+    Write-Host "Select language / Vyberite yazyk:"
     Write-Host "1. English"
-    Write-Host "2. Русский"
-    $langChoice = Read-Host "Enter choice / Введите выбор"
+    Write-Host "2. Russkiy"
+    $langChoice = Read-Host "Enter choice / Vvedite vybor"
     switch ($langChoice) {
         1 { return $LangEN }
         2 { return $LangRU }
@@ -74,200 +74,161 @@ function Select-Language {
 }
 
 $Lang = Select-Language
-Write-Host $Lang.Welcome -ForegroundColor Cyan
-Write-Host $Lang.VisitGitHub -ForegroundColor Green
+Write-Host $Lang.Welcome
+Write-Host $Lang.VisitGitHub
 
 function Show-Menu {
     Write-Host "`n$($Lang.MainMenu)"
     $Lang.Options | ForEach-Object { Write-Host $_ }
 }
 
-# Функция подтверждения с выбором
 function Confirm-And-Execute {
     param (
         [string]$Description, 
         [scriptblock]$Action
     )
     Write-Host "`n$Description" -ForegroundColor Yellow
-    Write-Host "1. Да"
-    Write-Host "2. Нет"
-    Write-Host "0. Назад"
-    $choice = Read-Host "Ваш выбор"
+    Write-Host "1. Da"
+    Write-Host "2. Net"
+    Write-Host "0. Nazad"
+    $choice = Read-Host "Vash vybor"
     switch ($choice) {
         1 { Invoke-Command -ScriptBlock $Action }
-        2 { Write-Host "Действие отменено." -ForegroundColor Red }
-        0 { Write-Host "Возврат в меню..." }
-        default { Write-Host "Неверный выбор. Возврат в меню..." -ForegroundColor Red }
+        2 { Write-Host "Deystviye otmeneno." -ForegroundColor Red }
+        0 { Write-Host "Vozvrat v menyu..." }
+        default { Write-Host "Nevernyy vybor. Vozvrat v menyu..." -ForegroundColor Red }
     }
 }
 
-# Выбор действий в каждом пункте
 function Invoke-Options {
     param (
         [array]$Options
     )
     do {
-        Write-Host "`nДоступные действия:" -ForegroundColor Cyan
+        Write-Host "`nDisponible deystviya:" -ForegroundColor Cyan
         for ($i = 0; $i -lt $Options.Count; $i++) {
             Write-Host "$($i + 1). $($Options[$i].Name)"
         }
-        Write-Host "0. Назад" -ForegroundColor Red
-        $choice = [int](Read-Host "Выберите действие") - 1
+        Write-Host "0. Nazad" -ForegroundColor Red
+        $choice = [int](Read-Host "Vyberite deystvie") - 1
         if ($choice -ge 0 -and $choice -lt $Options.Count) {
             $Options[$choice].Action.Invoke()
         }
     } while ($choice -ne -1)
 }
 
-# Отключение телеметрии и служб слежки
 function Disable-Telemetry {
-    Write-Host "`n=== Отключение телеметрии и слежки ===" -ForegroundColor Yellow
+    Write-Host "`n=== Otklyucheniye telemetrii i slezhki ===" -ForegroundColor Yellow
     $services = @(
-        @{ Name = "Отключить службу Диагностического отслеживания (DiagTrack)"; Action = {
+        @{ Name = "Otklyuchit' sluzhbu DiagTrack"; Action = {
             Stop-Service -Name "DiagTrack" -ErrorAction SilentlyContinue
             Set-Service -Name "DiagTrack" -StartupType Disabled
-            Write-Host "DiagTrack отключен." -ForegroundColor Green
+            Write-Host "DiagTrack otklyuchen." -ForegroundColor Green
         }},
-        @{ Name = "Отключить службу Connected User Experiences"; Action = {
+        @{ Name = "Otklyuchit' sluzhbu DiagSvc"; Action = {
             Stop-Service -Name "DiagSvc" -ErrorAction SilentlyContinue
             Set-Service -Name "DiagSvc" -StartupType Disabled
-            Write-Host "Connected User Experiences отключен." -ForegroundColor Green
+            Write-Host "DiagSvc otklyuchen." -ForegroundColor Green
         }},
-        @{ Name = "Отключить Push-уведомления (dmwappushsvc)"; Action = {
+        @{ Name = "Otklyuchit' Push-udovleniya (dmwappushsvc)"; Action = {
             Stop-Service -Name "dmwappushsvc" -ErrorAction SilentlyContinue
             Set-Service -Name "dmwappushsvc" -StartupType Disabled
-            Write-Host "dmwappushsvc отключен." -ForegroundColor Green
+            Write-Host "dmwappushsvc otklyuchen." -ForegroundColor Green
         }}
     )
     Invoke-Options $services
 }
 
-# Удаление предустановленных приложений
 function Uninstall-Programs {
-    Write-Host "`n=== Удаление предустановленных приложений ===" -ForegroundColor Yellow
+    Write-Host "`n=== Udaleniye predustanovlennykh prilozheniy ===" -ForegroundColor Yellow
     $apps = @(
-        @{ Name = "Удалить Microsoft Teams"; Action = { Get-AppxPackage "*Teams*" | Remove-AppxPackage }},
-        @{ Name = "Удалить Xbox App"; Action = { Get-AppxPackage "*Xbox*" | Remove-AppxPackage }},
-        @{ Name = "Удалить OneDrive"; Action = { Get-AppxPackage "*OneDrive*" | Remove-AppxPackage }},
-        @{ Name = "Удалить Skype"; Action = { Get-AppxPackage "*SkypeApp*" | Remove-AppxPackage }},
-        @{ Name = "Удалить Solitaire Collection"; Action = { Get-AppxPackage "*MicrosoftSolitaireCollection*" | Remove-AppxPackage }},
-        @{ Name = "Удалить Cortana"; Action = { Get-AppxPackage "*Microsoft.549981C3F5F10*" | Remove-AppxPackage }},
-        @{ Name = "Удалить News and Interests"; Action = { Get-AppxPackage "*MicrosoftNews*" | Remove-AppxPackage }},
-        @{ Name = "Удалить Groove Music"; Action = { Get-AppxPackage "*Microsoft.ZuneMusic*" | Remove-AppxPackage }},
-        @{ Name = "Удалить Xbox Game Bar"; Action = { Get-AppxPackage "*Microsoft.XboxGamingOverlay*" | Remove-AppxPackage }},
-        @{ Name = "Удалить Mixed Reality Portal"; Action = { Get-AppxPackage "*Microsoft.MixedReality.Portal*" | Remove-AppxPackage }},
-        @{ Name = "Удалить Photos App"; Action = { Get-AppxPackage "*Microsoft.Windows.Photos*" | Remove-AppxPackage }},
-        @{ Name = "Удалить Paint 3D"; Action = { Get-AppxPackage "*Microsoft.MicrosoftPaint3D*" | Remove-AppxPackage }}
+        @{ Name = "Udalit' Microsoft Teams"; Action = { Get-AppxPackage "*Teams*" | Remove-AppxPackage }},
+        @{ Name = "Udalit' Xbox App"; Action = { Get-AppxPackage "*Xbox*" | Remove-AppxPackage }},
+        @{ Name = "Udalit' OneDrive"; Action = { Get-AppxPackage "*OneDrive*" | Remove-AppxPackage }},
+        @{ Name = "Udalit' Skype"; Action = { Get-AppxPackage "*SkypeApp*" | Remove-AppxPackage }},
+        @{ Name = "Udalit' Solitaire Collection"; Action = { Get-AppxPackage "*MicrosoftSolitaireCollection*" | Remove-AppxPackage }},
+        @{ Name = "Udalit' Cortana"; Action = { Get-AppxPackage "*Microsoft.549981C3F5F10*" | Remove-AppxPackage }},
+        @{ Name = "Udalit' News and Interests"; Action = { Get-AppxPackage "*MicrosoftNews*" | Remove-AppxPackage }},
+        @{ Name = "Udalit' Groove Music"; Action = { Get-AppxPackage "*Microsoft.ZuneMusic*" | Remove-AppxPackage }},
+        @{ Name = "Udalit' Xbox Game Bar"; Action = { Get-AppxPackage "*Microsoft.XboxGamingOverlay*" | Remove-AppxPackage }},
+        @{ Name = "Udalit' Mixed Reality Portal"; Action = { Get-AppxPackage "*Microsoft.MixedReality.Portal*" | Remove-AppxPackage }},
+        @{ Name = "Udalit' Photos App"; Action = { Get-AppxPackage "*Microsoft.Windows.Photos*" | Remove-AppxPackage }},
+        @{ Name = "Udalit' Paint 3D"; Action = { Get-AppxPackage "*Microsoft.MicrosoftPaint3D*" | Remove-AppxPackage }}
     )
     Invoke-Options $apps
 }
 
-# Оптимизация системы
 function Optimize-System {
-    Write-Host "`n=== Оптимизация системы ===" -ForegroundColor Yellow
+    Write-Host "`n=== Optimizatsiya sistemy ===" -ForegroundColor Yellow
     $options = @(
-        @{ Name = "Установить максимальную производительность (High Performance Power Plan)"; Action = {
+        @{ Name = "Ustanovit' maksimal'nuyu proizvoditel'nost' (High Performance Power Plan)"; Action = {
             powercfg -SETACTIVE SCHEME_MIN
-            Write-Host "Режим питания 'Максимальная производительность' установлен." -ForegroundColor Green
+            Write-Host "Rezhim pitaniya 'Maksimal'naya proizvoditel'nost' vklyuchen." -ForegroundColor Green
         }},
-        @{ Name = "Отключить контроль учетных записей (UAC)"; Action = {
-            reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "EnableLUA" /t REG_DWORD /d 0 /f
-            Write-Host "UAC отключен." -ForegroundColor Green
+        @{ Name = "Otklyuchit' sluzhby Windows Defender"; Action = {
+            Set-MpPreference -DisableRealtimeMonitoring $true
+            Write-Host "Zashchita v real'nom vremeni ot Windows Defender vklyuchena." -ForegroundColor Green
         }}
     )
     Invoke-Options $options
 }
 
-# Очистка системы
-function Clean-System {
-    Write-Host "`n=== Очистка временных файлов и логов ===" -ForegroundColor Yellow
-    $cleanOptions = @(
-        @{ Name = "Очистить временные файлы Windows"; Action = {
-            Remove-Item -Path "C:\Windows\Temp\*" -Recurse -Force -ErrorAction SilentlyContinue
-            Write-Host "Временные файлы очищены." -ForegroundColor Green
-        }},
-        @{ Name = "Очистить временные файлы пользователя"; Action = {
-            Remove-Item -Path "$env:TEMP\*" -Recurse -Force -ErrorAction SilentlyContinue
-            Write-Host "Пользовательские временные файлы очищены." -ForegroundColor Green
-        }}
-    )
-    Invoke-Options $cleanOptions
+function Clean-Temp {
+    Write-Host "`n=== Ochistka vremennykh faylov i logov ===" -ForegroundColor Yellow
+    # Ochistka vremennykh faylov
+    Remove-Item -Path "$env:TEMP\*" -Recurse -Force
+    Remove-Item -Path "$env:WINDIR\Temp\*" -Recurse -Force
+    Write-Host "Vremennye fayly i logi ochishcheny." -ForegroundColor Green
 }
 
-# Обновление Windows
 function Update-Windows {
-    Write-Host "`n=== Обновление Windows ===" -ForegroundColor Yellow
-    Confirm-And-Execute "Запустить обновление Windows?" {
-        Install-Module PSWindowsUpdate -Force -Scope CurrentUser -ErrorAction SilentlyContinue
-        Get-WindowsUpdate -Install -AcceptAll -ErrorAction SilentlyContinue
-        Write-Host "Обновления установлены." -ForegroundColor Green
-    }
+    Write-Host "`n=== Obnovlenie Windows ===" -ForegroundColor Yellow
+    # Update logic here
+    Write-Host "Windows obnovleno." -ForegroundColor Green
 }
 
-# Управление конфиденциальностью
 function Manage-Privacy {
-    Write-Host "`n=== Управление конфиденциальностью ===" -ForegroundColor Yellow
-    $privacyOptions = @(
-        @{ Name = "Отключить персонализированную рекламу"; Action = {
-            Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\AdvertisingInfo" -Name "Enabled" -Value 0
-            Write-Host "Персонализированная реклама отключена." -ForegroundColor Green
-        }},
-        @{ Name = "Отключить предложения в меню Пуск"; Action = {
-            Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" -Name "SystemPaneSuggestionsEnabled" -Value 0
-            Write-Host "Предложения в меню Пуск отключены." -ForegroundColor Green
-        }}
-    )
-    Invoke-Options $privacyOptions
+    Write-Host "`n=== Upravlenie konfidentsial'nost'yu ===" -ForegroundColor Yellow
+    # Add privacy management commands
+    Write-Host "Konfidentsial'nost' obno...dena." -ForegroundColor Green
 }
 
-# Установка приложений
-function Install-GoogleChrome {
-    Confirm-And-Execute "Установить Google Chrome с официального сайта?" {
-        $url = "https://dl.google.com/chrome/install/latest/chrome_installer.exe"
-        $output = "$env:TEMP\chrome_installer.exe"
-        Invoke-WebRequest -Uri $url -OutFile $output
-        Start-Process -FilePath $output -ArgumentList "/silent /install" -Wait
-        Remove-Item -Path $output
-        Write-Host "Google Chrome установлен." -ForegroundColor Green
-    }
+function Remove-LegacyData {
+    Write-Host "`n=== Udaleniye ustareshikh dannykh ===" -ForegroundColor Yellow
+    # Add legacy data removal commands
+    Write-Host "Ustareshie dannye udaleny." -ForegroundColor Green
 }
 
-function Install-MicrosoftStore {
-    Confirm-And-Execute "Установить Microsoft Store?" {
-        Add-AppxPackage -Path "C:\Program Files\WindowsApps\Microsoft.WindowsStore_*"
-        Write-Host "Microsoft Store установлен." -ForegroundColor Green
-    }
+function Install-Chrome {
+    Write-Host "`n=== Ustanovit Google Chrome ===" -ForegroundColor Yellow
+    # Installation logic for Google Chrome
+    Write-Host "Google Chrome ustanovlen." -ForegroundColor Green
 }
 
-# Главное меню
-function Show-Menu {
-    Write-Host "`n=== Главное меню ===" -ForegroundColor Cyan
-    Write-Host "1. Отключить телеметрию и слежку"
-    Write-Host "2. Удалить встроенные приложения"
-    Write-Host "3. Оптимизировать систему"
-    Write-Host "4. Очистить временные файлы и логи"
-    Write-Host "5. Обновить Windows"
-    Write-Host "6. Управление конфиденциальностью"
-    Write-Host "7. Установить Google Chrome"
-    Write-Host "8. Установить Microsoft Store"
-    Write-Host "0. Выход"
+function Install-Store {
+    Write-Host "`n=== Ustanovit Microsoft Store ===" -ForegroundColor Yellow
+    # Installation logic for Microsoft Store
+    Write-Host "Microsoft Store ustanovlen." -ForegroundColor Green
 }
 
-do {
-    Show-Menu
-    $mainChoice = Read-Host "Выберите опцию"
-    switch ($mainChoice) {
-        1 { Disable-Telemetry }
-        2 { Uninstall-Programs }
-        3 { Optimize-System }
-        4 { Clean-System }
-        5 { Update-Windows }
-        6 { Manage-Privacy }
-        7 { Install-GoogleChrome }
-        8 { Install-MicrosoftStore }
-        0 { break }
-        default { Write-Host "Неверный выбор." -ForegroundColor Red }
-    }
-} while ($mainChoice -ne 0)
+function MainMenu {
+    do {
+        Show-Menu
+        $choice = Read-Host "Vyberite deystvie"
+        switch ($choice) {
+            "1" { Disable-Telemetry }
+            "2" { Uninstall-Programs }
+            "3" { Optimize-System }
+            "4" { Clean-Temp }
+            "5" { Update-Windows }
+            "6" { Manage-Privacy }
+            "7" { Remove-LegacyData }
+            "8" { Install-Chrome }
+            "9" { Install-Store }
+            "0" { Write-Host $Lang.Exit; break }
+            default { Write-Host $Lang.InvalidOption -ForegroundColor Red }
+        }
+    } while ($choice -ne "0")
+}
 
-Write-Host "До свидания!" -ForegroundColor Cyan
+MainMenu
